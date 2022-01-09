@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { passwordMismatchValidator } from '../password-mismatch.directive';
 
 @Component({
   selector: 'app-forgot-password',

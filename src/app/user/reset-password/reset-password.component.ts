@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { passwordMismatchValidator } from '../password-mismatch.directive';
+import { passwordMismatchCrossValidator } from '../password-mismatch-cross.directive';
+import { PasswordMismatchErrorStateMatcher } from '../password-mismatch-error-state-matcher';
 
 @Component({
   selector: 'app-reset-password',
@@ -12,14 +13,15 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordForm!: FormGroup;
   hideNewPassword: boolean = true;
   hideConfirmPassword: boolean = true;
+  matcher = new PasswordMismatchErrorStateMatcher();
 
   constructor() { }
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
       password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required, passwordMismatchValidator()]),
-    });
+      confirmPassword: new FormControl('', [Validators.required]),
+    }, {validators: passwordMismatchCrossValidator});
   }
 
   get password() {
